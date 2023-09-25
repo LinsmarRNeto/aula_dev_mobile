@@ -1,6 +1,6 @@
 # aula_dev_mobile
 
-A new Flutter project.
+A Flutter project for the subject Development for Mobile Devices of the Information Systems course 7th Period.
 
 ## Getting Started
 

@@ -12,7 +12,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return ChangeNotifierProvider(
       create: (context) => MyAppState(),
       child: MaterialApp(
@@ -55,6 +54,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  var selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,26 +65,24 @@ class _MyHomePageState extends State<MyHomePage> {
             extended: false,
             destinations: [
               NavigationRailDestination(
-                  icon: Icon(Icons.home), 
-                  label: Text('Home')
-                  ),
+                  icon: Icon(Icons.home), label: Text('Home')),
               NavigationRailDestination(
-                  icon: Icon(Icons.favorite), 
-                  label: Text('Favorites')
-                  ),
+                  icon: Icon(Icons.favorite), label: Text('Favorites')),
             ],
-            selectedIndex: 0,
+            selectedIndex: selectedIndex,
             onDestinationSelected: (value) {
-              print('selected: $value');
+              //print('selected: $value');
+              setState(() {
+                selectedIndex = value;
+              });
             },
           ),
         ),
         Expanded(
-          child: Container(
-            color: Theme.of(context).colorScheme.primaryContainer,
-            child: GenratorPage(),
-            )
-          )
+            child: Container(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          child: GenratorPage(),
+        ))
       ]),
     );
   }

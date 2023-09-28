@@ -92,7 +92,8 @@ class _MyHomePageState extends State<MyHomePage> {
         Expanded(
             child: Container(
           color: Theme.of(context).colorScheme.primaryContainer,
-          child: GenratorPage(),
+          //child: GenratorPage(),
+          child: page,
         ))
       ]),
     );

@@ -70,38 +70,36 @@ class _MyHomePageState extends State<MyHomePage> {
       default:
         throw UnimplementedError('No Widget for $selectedIndex');
     }
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Scaffold(
-          body: Row(children: [
-            SafeArea(
-              child: NavigationRail(
-                extended: constraints.maxWidth>=600,
-                destinations: [
-                  NavigationRailDestination(
-                      icon: Icon(Icons.home), label: Text('Home')),
-                  NavigationRailDestination(
-                      icon: Icon(Icons.favorite), label: Text('Favorites')),
-                ],
-                selectedIndex: selectedIndex,
-                onDestinationSelected: (value) {
-                  //print('selected: $value');
-                  setState(() {
-                    selectedIndex = value;
-                  });
-                },
-              ),
+    return LayoutBuilder(builder: (context, constraints) {
+      return Scaffold(
+        body: Row(children: [
+          SafeArea(
+            child: NavigationRail(
+              extended: constraints.maxWidth >= 600,
+              destinations: [
+                NavigationRailDestination(
+                    icon: Icon(Icons.home), label: Text('Home')),
+                NavigationRailDestination(
+                    icon: Icon(Icons.favorite), label: Text('Favorites')),
+              ],
+              selectedIndex: selectedIndex,
+              onDestinationSelected: (value) {
+                //print('selected: $value');
+                setState(() {
+                  selectedIndex = value;
+                });
+              },
             ),
-            Expanded(
+          ),
+          Expanded(
               child: Container(
-              color: Theme.of(context).colorScheme.primaryContainer,
-              //child: GenratorPage(),
-              child: page,
-            ))
-          ]),
-        );
-      }
-    );
+            color: Theme.of(context).colorScheme.primaryContainer,
+            //child: GenratorPage(),
+            child: page,
+          ))
+        ]),
+      );
+    });
   }
 }
 
@@ -150,6 +148,19 @@ class GenratorPage extends StatelessWidget {
         ]),
       ),
     );
+  }
+}
+
+class FavoritesPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    var appState = context.watch<MyAppState>();
+
+    if (appState.favorites.isEmpty) {
+      return Center(
+        child: Text('No favorites yet'),
+      );
+    }
   }
 }
 

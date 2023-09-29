@@ -161,6 +161,21 @@ class FavoritesPage extends StatelessWidget {
         child: Text('No favorites yet'),
       );
     }
+
+    return ListView(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(20),
+           child: Text('You have ${appState}'),
+          ),
+
+          for(var pair in appState.favorites)
+            ListTile(
+              leading: Icon(Icons.favorite),
+              title: Text(pair.asLowerCase),
+            )
+      ],
+    );
   }
 }
 

@@ -47,6 +47,11 @@ class MyAppState extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  void removeFavorites(WordPair pair) {
+    favorites.remove(pair);
+    notifyListeners();
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -162,18 +167,39 @@ class FavoritesPage extends StatelessWidget {
       );
     }
 
-    return ListView(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.all(20),
-           child: Text('You have ${appState}'),
+          padding: const EdgeInsets.all(30),
+          child: Text('You have '
+              '${appState.favorites.length} favorites:'),
+        ),
+        Expanded(
+          child: GridView(
+            gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              maxCrossAxisExtent: 400,
+              childAspectRatio: 400 / 80,
+            ),
+            children: [
+              /* Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text('You have ${appState}'),
+              ), */
+              for (var pair in appState.favorites)
+                ListTile(
+                  leading: IconButton(
+                    icon: Icon(Icons.delete_outline, semanticLabel: 'Delete'),
+                    color: Theme.of(context).colorScheme.primary,
+                    onPressed: () {
+                      appState.removeFavorites(pair);
+                    },
+                  ),
+                  title: Text(pair.asLowerCase),
+                )
+            ],
           ),
-
-          for(var pair in appState.favorites)
-            ListTile(
-              leading: Icon(Icons.delete),
-              title: Text(pair.asLowerCase),
-            )
+        ),
       ],
     );
   }
